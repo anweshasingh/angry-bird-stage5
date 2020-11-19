@@ -6,8 +6,7 @@ const Constraint = Matter.Constraint; //to create constraint
 var engine, world;
 var box1, pig1;
 var backgroundImg,platform;
-var log6;
-var chain;
+var slingShot;
 
 function preload() {
     backgroundImg = loadImage("sprites/bg.png");
@@ -39,8 +38,7 @@ function setup(){
 
     bird = new Bird(100,100);
 
-    log6 = new Log(230,180,80,PI/2);
-    chain = new Chain(bird.body, log6.body); //give the two bodies which you want to connnect
+    slingShot = new SlingShot(bird.body, {x:200, y:100}); //give the body and the point which you want to connnect
 
 }
 
@@ -68,6 +66,13 @@ function draw(){
     bird.display();
     platform.display();
 
-    log6.display();
-    chain.display();
+    slingShot.display();
 }
+
+function mouseDragged () {
+    Matter.Body.setPosition(bird.body, {x:mouseX, y:mouseY}); // to move the bird with the mouse when it is dragged
+} 
+
+function mouseReleased () {
+    slingShot.fly(); // to make the bird fly when mouse is released
+} 
